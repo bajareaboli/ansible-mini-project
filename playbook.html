@@ -1,0 +1,18 @@
+---
+- hosts: slave 
+  become: true
+  tasks:
+    - name: Print message
+      debug:
+        msg: Hello Ansible World
+
+    - name: copy files to dest
+      copy:
+        src: index.html
+        dest: /tmp
+    - name: Install latest version of Apache
+      apt: name=apache2 update_cache=yes state=latest
+    - name: Create content
+      template:
+        src: index.html
+        dest: /var/www/html/index.html
